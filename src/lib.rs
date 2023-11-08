@@ -11,6 +11,14 @@ include!("bindings.rs");
 #[cfg(feature = "bindgen")]
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
+#[cfg(feature = "zstd")]
+extern crate zstd_sys;
+
+#[cfg(feature = "zlib")]
+extern crate libz_sys;
+
+extern crate lz4_sys;
+
 /// Defaults mirror BLOSC2_CPARAMS_DEFAULTS in blosc2.h
 ///
 /// static const values are compile time constructs, and can't have bindings

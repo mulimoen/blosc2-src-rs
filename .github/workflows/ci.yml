@@ -34,11 +34,13 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: '${{matrix.rust}}'
-      - name: Build and test
+      - name: Build and test (no features)
         run: cargo test
-      - name: Build and test (all features)
-        run: cargo test --all-features
-      - name: Build and test (all features, simd)
+      - name: Build and test (zstd)
+        run: cargo test --features zstd
+      - name: Build and test (bindgen, zstd)
+        run: cargo test --features bindgen,zstd
+      - name: Build and test (simd enabled)
         env:
           RUSTFLAGS: "-C target-feature=+sse2,+avx2"
-        run: cargo test --all-features
+        run: cargo test --features bindgen,zstd

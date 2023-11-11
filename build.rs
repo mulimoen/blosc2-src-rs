@@ -40,6 +40,24 @@ fn build_cc() {
         }
     }
 
+    if cfg!(all(target_feature = "avx512f", target_feature = "avx512bw")) {
+        build.define("SHUFFLE_AVX512_ENABLED", "1");
+        if cfg!(target_env = "msvc") {
+            build.flag("/arch:AVX512");
+        } else {
+            build.flag("-mavx512f");
+            build.flag("-mavx512bw");
+        }
+    }
+
+    if cfg!(target_feature = "neon") {
+        build.define("SHUFFLE_NEON_ENABLED", "1");
+        if cfg!(target_arch = "armv7") {
+            build.flag("-mfpu=neon");
+        }
+        build.flag("-flax-vector-conversion");
+    }
+
     {
         // lz4 was optional in cblosc, but seems to be required in cblosc 2
         add_file(&mut build, "c-blosc2/internal-complibs/lz4-1.9.4");

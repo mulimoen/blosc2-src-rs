@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {os: ubuntu, rust: stable}
+          - {os: ubuntu-22.04, rust: stable}
           - {os: windows, rust: stable-msvc}
           - {os: windows, rust: stable-gnu}
           - {os: macos, rust: stable}

@@ -16,15 +16,15 @@ env:
 jobs:
   main:
     name: main ci
-    runs-on: ${{matrix.os}}-latest
+    runs-on: ${{matrix.os}}
     strategy:
       fail-fast: false
       matrix:
         include:
           - {os: ubuntu-22.04, rust: stable}
-          - {os: windows, rust: stable-msvc}
-          - {os: windows, rust: stable-gnu}
-          - {os: macos, rust: stable}
+          - {os: windows-latest, rust: stable-msvc}
+          - {os: windows-latest, rust: stable-gnu}
+          - {os: macos-latest, rust: stable}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
